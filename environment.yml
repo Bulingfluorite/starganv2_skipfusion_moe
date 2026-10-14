@@ -1,0 +1,47 @@
+# MRIxFields2026 — Conda Environment
+#
+# Usage (from repo root):
+#   conda env create -f environment.yml
+#   conda activate mf
+#
+# For CUDA 11.8, change the index URL and version tags:
+#   cu121 -> cu118
+#
+# This file replaces the manual pip install steps in README Step 2.
+# Baseline/setup.py is invoked by the `-e Baseline/` line below for editable install.
+
+name: mf
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    # --- PyTorch (CUDA 12.1) ---
+    - --extra-index-url https://download.pytorch.org/whl/cu121
+    - torch==2.3.1+cu121
+    - torchvision==0.18.1+cu121
+
+    # --- TensorFlow (SynthSeg segmentation) ---
+    - tensorflow==2.15.1
+    - keras==2.15.0
+
+    # --- Core dependencies ---
+    - numpy>=1.24.0,<2.0
+    - nibabel>=5.0.0
+    - scipy>=1.10.0
+    - scikit-image>=0.20.0
+    - matplotlib>=3.7.0
+    - lpips>=0.1.4
+    - pytorch_msssim>=1.0.0
+    - pyyaml>=6.0
+    - tqdm>=4.65.0
+    - SimpleITK>=2.2.0
+    - six>=1.16.0
+    - h5py>=3.0.0
+    - pandas>=2.0.0
+    - xlsxwriter>=3.0.0
+
+    # --- MRIxFields package (editable install) ---
+    # Requires running `conda env create` from the repo root directory.
+    - -e Baseline/

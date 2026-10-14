@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+title: "StarGAN v2 + U-Net + MoE-FiLM: Task 3 of the MRIxFields2026 entry"
+license: MIT
+repository-code: "https://github.com/Bulingfluorite/starganv2_skipfusion_moe"
+authors:
+  - family-names: Cai
+    given-names: Jiacai
+  - family-names: Xu
+    given-names: Xinyuan
+  - family-names: Xia
+    given-names: Yuming
+  - family-names: Zhang
+    given-names: Bo
+  - family-names: Liu
+    given-names: Yilong
+  - family-names: Lyu
+    given-names: Mengye
+preferred-citation:
+  type: conference-paper
+  title: "Field-Conditioned MRI Field-Strength Translation for the MRIxFields2026 Challenge"
+  collection-title: "Medical Image Computing and Computer Assisted Intervention -- MICCAI 2026 Workshops and Challenges"
+  volume: "LNCS 17274"
+  year: 2026
+  publisher:
+    name: "Springer Nature Switzerland"
+  url: "https://papers.miccai.org/miccai-2026-sat/MRIxFields2026_003.html"
