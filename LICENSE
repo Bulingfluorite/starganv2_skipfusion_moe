@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Note: this MIT licence covers our own contributions. Files adapted from other
-projects keep their original terms -- see THIRD_PARTY_NOTICES.md. In particular,
-the StarGAN v2 derived files are licensed CC BY-NC 4.0 (non-commercial), so the
-combined repository is research/academic use only.
