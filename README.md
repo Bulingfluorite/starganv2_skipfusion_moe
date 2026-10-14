@@ -123,7 +123,7 @@ repository.)
 
 ---
 
-## 3. Architecture (`final` branch — 4-expert MoE-FiLM)
+## 3. Architecture (4-expert MoE-FiLM)
 
 ```
   x (B, 1, 512, 512)                              target condition
@@ -338,18 +338,19 @@ submission (`configs/task3/stargan/bal_*.yaml`). Two auxiliary config sets are i
 design choices: `jun30_*` (a longer 60 000-iteration pretraining schedule) and `ablationA/B_*` (the same
 recipe with `use_moe_film: false` / `true`).
 
-Two further lines were explored during development and are **not** published here:
+Two further lines were explored during development and are **not** published here — they are referred to
+elsewhere in this file by their development names:
 
-- an **audit-tooling** line that wired the official MRIxFields audit-tools into `train.py`: a fail-fast
-  data-integrity check at startup, tamper-evident chained-hash training logs, per-iteration / per-batch
-  schema records, a fixed-subset validation pass, and a process-tree resource/IO monitor. Audit-only —
-  no loss, optimiser or schedule changes.
-- a **3-expert sibling** line that replaced the four depth-partitioned experts with `ThreeExpertFiLM`
-  (three experts over one unified 193-d input produced by a `SharedContentProjector`), added `z_tgt` to
-  `FieldMLP` for target-field brightness control, fixed the SSIM-loss direction (§9.1) and switched
-  fine-tuning to a hard encoder freeze (encoder frozen for the first 30 of 50 epochs, EWC off). Its
-  validation-stage scores were **0.8380** SSIM in pretraining (best @ 23 360) and **0.8999** SSIM after
-  fine-tuning.
+- **`clean_4expert_audit`** — an audit-tooling line that wired the official MRIxFields audit-tools into
+  `train.py`: a fail-fast data-integrity check at startup, tamper-evident chained-hash training logs,
+  per-iteration / per-batch schema records, a fixed-subset validation pass, and a process-tree
+  resource/IO monitor. Audit-only — no loss, optimiser or schedule changes.
+- **`moe_3expert_v2`** — a 3-expert sibling line that replaced the four depth-partitioned experts with
+  `ThreeExpertFiLM` (three experts over one unified 193-d input produced by a `SharedContentProjector`),
+  added `z_tgt` to `FieldMLP` for target-field brightness control, fixed the SSIM-loss direction (§9.1)
+  and switched fine-tuning to a hard encoder freeze (encoder frozen for the first 30 of 50 epochs, EWC
+  off). Its validation-stage scores were **0.8380** SSIM in pretraining (best @ 23 360) and **0.8999**
+  SSIM after fine-tuning.
 
 This published tree is a single curated branch rather than the development history: agent scratch files,
 captured test-evidence dumps, a stale per-package README and the drifted `tests/` scaffolding were
@@ -428,7 +429,8 @@ everywhere). The 36k-iteration pretrain took ≈7 h and the 50-epoch fine-tune �
 
 ## 9. Known limitations and stale spots
 
-Recorded here so that nobody (including us) re-discovers them the hard way.
+Recorded here so that nobody (including us) re-discovers them the hard way. `clean_4expert_audit` and
+`moe_3expert_v2` below are the unpublished development lines described in §6.
 
 1. **SSIM-direction bug in the pretraining generator loss (fixed only on `moe_3expert_v2`).**
    `SSIMLoss.forward` returns `1 − SSIM` (`losses/structure.py`), but `compute_g_loss` computes
